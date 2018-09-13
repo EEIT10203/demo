@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-tw" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+<link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+
+<script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+		<script>
+		  $( function() {
+			  
+			$("#pay").change(function() {
+				if($("#pay").val()=="Y"){
+					$("#payblock").show();
+				} else {
+					$("#payblock").hide();
+				}
+			});			
+		  } );
+		 
+
+		  </script>
+<title>票券資訊</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<div class="hero-unit">
+			<h1>票券資訊</h1>
+			<form class="form-horizontal" th:action="@{/ticket/doAdd}"
+				method="post" enctype="multipart/form-data">
+ 			<input type="hidden" name="activityId" th:value="${activityId}" />
+				<div class="form-group">
+					<div class="form-group">
+						<label for="ticketName" class="col-sm-2 control-label">票券名稱</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="ticketName"
+								id="ticketName" required />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="activityName" class="col-sm-2 control-label">付費</label>
+						<div class="col-sm-10">
+							<select id="pay">
+								<option value="N">不須付費</option>
+								<option value="Y">需付費</option>
+							</select>
+						</div>
+					</div>
+					
+					<div id="payblock" style="display:none">
+
+
+					<div class="form-group">
+						<label for="ticketQuantity" class="col-sm-2 control-label">票券數量</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" name="ticketQuantity"
+								id="ticketQuantity" value="0" required />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="ticketPrice" class="col-sm-2 control-label">販售價格</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" min="0"
+								name="ticketPrice" id="ticketPrice" value="0" required />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="ticketType" class="col-sm-2 control-label">票券類別</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" min="0" name="ticketType"
+								id="ticketType" value="免費票" required />
+						</div>
+					</div>
+					
+				</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<input type="submit" value="確認完成" class="btn btn-info" /> <a
+								href="/activity/list" class="btn btn-info">取消建立票券</a>
+						</div>
+
+					</div>
+				</div>
+
+			</form>
+		</div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
+

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-tw" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+<link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+<script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+<script>
+	$(function() {
+		$("#activityDate").datepicker({
+			dateFormat : 'yy-mm-dd'
+		});
+	});
+</script>
+
+<script> 
+function check() { 
+ var msg = "確定要購買此活動的票券嗎?"; 
+ if (confirm(msg)==true){ 
+  return true; 
+ }else{ 
+  return false; 
+ } 
+} 
+</script> 
+<title>活動詳情</title>
+</head>
+<body>
+	
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="container">
+		<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-secondary" role="progressbar" style="width: 33%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">報名要參加的活動</div>
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 34%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">購買活動票券</div>
+  <div class="progress-bar progress-bar-striped bg-secondary" role="progressbar" style="width: 33%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">購買活動票券</div>
+</div>
+		<div class="form-group">
+			<label for="activityImage" class="col-sm-2 control-label"></label>
+			<div class="col-sm-10">
+				<img height="400" width="500"
+					th:src="@{${'/activity/'+bean.activityId+'/image/'+bean.activityImage}}" />
+			</div>
+		</div>
+		<div class="hero-unit">
+			<div class="form-group">
+				<label for="activityName" class="col-sm-2 control-label">活動名稱</label>
+				<div class="col-sm-10">
+					<label th:text="${bean.activityName}"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="activityDate" class="col-sm-2 control-label">活動日期</label>
+				<div class="col-sm-10">
+					<label th:text="${bean.activityDate}"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="activityPlace" class="col-sm-2 control-label">活動地點</label>
+				<div class="col-sm-10">
+					<label th:text="${bean.activityPlace}"></label>
+				</div>
+			</div>
+			<form class="form-horizontal" th:action="@{/order/addsignin}" method="post">
+			<input type="hidden" name="activityId" th:value="${bean.activityId}" />
+			<table class="table table-hover" >
+				<thead>
+					<tr>
+						<th></th>
+						<th>票券名稱</th>
+						<th>票券金額</th>
+						<th>票券種類</th>
+						<th>購買數量</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each=" bean: ${ticket}">
+						<th scope="row" th:text="${bean.ticketId}" ></th>
+						<td th:text="${bean.ticketName}"></td>
+						<td th:text="${bean.ticketPrice}"></td>
+						<td th:text="${bean.ticketType}"></td>
+						<td>
+						 <input type="hidden" name="ticketId" id="ticketId"  th:value="${bean.ticketId}" />
+						<input type="number"  name="buyTicket" id="buyTicket" min="1" value="1" required /></td>
+
+					</tr>
+				</tbody>
+			</table>
+
+
+		        <div class="form-group">
+		            <div class="col-sm-offset-2 col-sm-10">
+		                <input type="submit" value="下一步"  onclick="javascript:return check()" class="btn btn-info" />
+		                <a href="/activity/list" class="btn btn-info">取消報名</a>
+		            </div>
+		
+		        </div>
+		</form>
+		</div>
+		
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+
+</body>
+</html>
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+        <link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+        <script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+        <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+
+        <title>待認證清單</title>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div>
+
+<h2>活動列表</h2>
+
+<table class="table table-hover">
+        <thead>
+        <tr>
+			<th>會員帳號</th>
+			<th>帳號建立時間</th>
+			<th>提交認證時間</th>
+			<th>會員狀態</th>
+			<th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" bean: ${user}">
+            <th scope="row" th:text="${bean.UserId}"></th>
+            <td th:text="${bean.createTime}"></td>
+	            <td th:text="${bean.updateTime}"></td>
+				<td>
+					<label th:text="一般會員" th:if="${bean.role} ==U"></label >
+					<label th:text="高級會員" th:if="${bean.role} ==P"></label >
+					<label th:text="管理者" th:if="${bean.role} ==M"></label >
+					<label th:text="進階會員認證中" th:if="${bean.role} ==T"></label >
+				</td>
+			<td>								  
+			<div >
+			<a th:if="${bean.role} ==U" th:href="@{${'/member/'+bean.userId+'/sendExamine'}}" onclick="javascript:return send()" class="btn btn-info" >提交審核</a>
+			</div>
+			</td>
+        </tr>
+        </tbody>
+    </table>
+	      	</div>
+	     	<div th:replace="fragments/footer :: footer"></div>
+	     </div>
+	     
+    </body>
+</html>
+

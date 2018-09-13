@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-tw" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+<link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+<script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+<script>
+	$(function() {
+		$("#activityDate").datepicker({
+			dateFormat : 'yy-mm-dd'
+		});
+	});
+</script>
+<title>活動詳情</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/goodshare.js/4.1.2/goodshare.min.js"></script>
+
+		<div class="hero-unit" th:action="@{/activity/preview}">		
+			<table class="table table-hover">
+				<thead><tr><th>活動名稱</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.activityName}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>活動主辦人</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.activityHost}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>活動日期</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.activityDate}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>活動地點</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.activityPlace}"></label>
+				</div>
+			</div>			
+			<table class="table table-hover">
+				<thead><tr><th>活動描述</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.actiivityDescription}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>連絡電話</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.HostTel}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>連絡信箱</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.HostMail}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>人數上限</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.Maxnum}"></label>
+				</div>
+			</div>				
+
+			</div>
+			<div class="form-group">
+				<label for="activityImage" class="col-sm-2 control-label"></label>
+				<div class="col-sm-10">
+					<img height="400" width="500"
+						th:src="@{${'/activity/'+bean.activityId+'/image/'+bean.activityImage}}" />
+				</div>
+			</div>
+			
+			<table class="table table-hover" >
+				<thead>
+					<tr>
+						<th>票券查詢碼</th>
+						<th>票券名稱</th>
+						<th>票券數量</th>
+						<th>票券金額</th>
+						<th>票券種類</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each=" bean: ${ticketList}">
+						<th scope="row" th:text="${bean.ticketId}"></th>
+						<td th:text="${bean.ticketName}"></td>
+						<td th:text="${bean.ticketQuantity}"></td>
+						<td th:text="${bean.ticketPrice}"></td>
+						<td th:text="${bean.ticketType}"></td>
+
+					</tr>
+				</tbody>
+			</table>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<a th:href="@{${'/ticket/setticket?activityId='+bean.activityId}}"
+						class="btn btn-info">新增其他票券</a> 
+						<a href="/activity/list" class="btn btn-info">提交審核</a>
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<div th:replace="fragments/footer :: footer"></div>
+	
+
+</body>
+</html>
+

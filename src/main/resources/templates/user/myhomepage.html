@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+        <link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+        <script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+        <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+
+        <title>活動專區</title>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div>
+
+		<h2>活動列表</h2>
+		
+		
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link" id="join-tab" data-toggle="tab" href="#join" role="tab" aria-controls="join" aria-selected="false">參加的活動</a>
+		  </li>
+		   <li class="nav-item">
+		    <a class="nav-link" id="like-tab" data-toggle="tab" href="#like" role="tab" aria-controls="like" aria-selected="false">喜歡的活動</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link " id="follow-tab" data-toggle="tab" href="#follow" role="tab" aria-controls="follow" aria-selected="true">我追蹤的主辦單位</a>
+		  </li>
+		</ul>
+		
+		<div class="tab-content" id="myTabContent">
+		  
+		  <div class="tab-pane fade" id="join" role="tabpanel" aria-labelledby="join-tab">
+		  <table class="table table-hover">
+
+
+		    </table>
+			</div>
+			
+
+
+		</div>
+
+	      	</div>
+	     	<div th:replace="fragments/footer :: footer"></div>
+	     </div>
+	     
+    </body>
+</html>
+

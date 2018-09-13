@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-tw" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+<link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+<script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+
+<title>參加活動</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<div>
+
+			<h2>確認參加人資訊</h2>
+
+			<form class="form-horizontal" th:action="@{/order/ticket}"
+				th:object="${order}" method="post">
+				<input type="hidden" name="userId" th:value="*{userId}" />
+				<div class="form-group">
+					<label for="userName" class="col-sm-2 control-label">姓名</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="userName"
+							id="userName" th:value="*{userName}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="mail" class="col-sm-2 control-label">電子郵件信箱</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="mail" id="mail"
+							th:value="*{mail}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="mobile" class="col-sm-2 control-label">手機號碼</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="mobile" id="mobile"
+							th:value="*{mobile}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="userIdentity" class="col-sm-2 control-label">身分證字號</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="userIdentity" id="userIdentity"
+							th:value="*{userIdentity}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="userBirth" class="col-sm-2 control-label">出生日期</label>
+					<div class="col-sm-10">
+						<input type="date" class="form-control" name="userBirth" id="userBirth"
+							th:value="*{userBirth}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<input type="submit" value="下一步" class="btn btn-info" /> &nbsp;
+						&nbsp; &nbsp; <a
+							th:href="@{${'/activity/'+bean.activityId+'/detail'}}"
+							class="btn btn-sm btn-outline-secondary">回上一頁</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
+

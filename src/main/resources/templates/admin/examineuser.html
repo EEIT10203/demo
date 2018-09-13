@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+<link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+<script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+<script> 
+function check() { 
+ var msg = "審核過後，按下確認使審核通過"; 
+ if (confirm(msg)==true){ 
+  return true; 
+ }else{ 
+  return false; 
+ } 
+} 
+</script> 
+<script> 
+function out() { 
+ var msg = "審核過後，按下確認退回申請"; 
+ if (confirm(msg)==true){ 
+  return true; 
+ }else{ 
+  return false; 
+ } 
+} 
+</script> 
+<title>管理專區</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<div>
+
+			<h2>會員審核</h2>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>會員帳號</th>
+						<th>帳號建立時間</th>
+						<th>身分證字號</th>
+						<th>郵件信箱</th>
+						<th>手機號碼</th>
+						<th>會員狀態</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each=" bean: ${beanList}">
+						<th scope="row" th:text="${bean.userId}"></th>
+						<td th:text="${bean.createTime}"></td>
+						<td th:text="${bean.userIdentity}"></td>
+						<td th:text="${bean.email}"></td>
+						<td th:text="${bean.mobile}"></td>
+						<td th:text="${bean.status}"></td>
+						<td>
+							<div>
+								<a th:if="${bean.role} ==T" th:href="@{${'/admin/member/'+bean.userId+'/examineFault'}}" onclick="javascript:return out()" class="btn btn-info">審核未通過</a>
+								<a th:if="${bean.role} ==T" th:href="@{${'/admin/member/'+bean.userId+'/examineOK'}}" onclick="javascript:return check()" class="btn btn-info">審核通過</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<a href="/admin/all" class="btn btn-info">回上層</a>
+				</div>
+			</div>
+		</div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
+

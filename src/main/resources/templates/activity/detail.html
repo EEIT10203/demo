@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-tw" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+<link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+<script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+<script>
+	$(function() {
+		$("#activityDate").datepicker({
+			dateFormat : 'yy-mm-dd'
+		});
+	});
+</script>
+<title>活動詳情</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+
+<button data-social="twitter" class="btn btn-info">分享至Twitter</button>
+<button data-social="facebook" class="btn btn-Primary">分享至Facebook</button>
+<button data-social="googleplus" class="btn btn-danger">分享至Google+</button>
+<!-- goodshare.js v4.1.2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/goodshare.js/4.1.2/goodshare.min.js"></script>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">報名要參加的活動</div>
+  <div class="progress-bar progress-bar-striped bg-secondary" role="progressbar" style="width: 34%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">購買活動票券</div>
+  <div class="progress-bar progress-bar-striped bg-secondary" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">選擇付款方式</div>
+</div>
+
+
+		<div class="hero-unit" th:action="@{/activity/detail}">
+			<table class="table table-hover">
+				<thead><tr><th>活動名稱</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.activityName}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>活動主辦人</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.activityHost}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>活動日期</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.activityDate}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>活動地點</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.activityPlace}"></label>
+				</div>
+			</div>			
+			<table class="table table-hover">
+				<thead><tr><th>活動描述</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.actiivityDescription}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>連絡電話</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.HostTel}"></label>
+				</div>
+			</div>
+			<table class="table table-hover">
+				<thead><tr><th>連絡信箱</th></tr></thead></table>		
+			<div class="form-group">				
+				<div class="col-sm-10">
+					<label th:text="${bean.HostMail}"></label>
+				</div>
+			</div>
+	
+			<div class="form-group">
+				<label for="activityImage" class="col-sm-2 control-label"></label>
+				<div class="col-sm-10">
+					<img height="400" width="500"
+						th:src="@{${'/activity/'+bean.activityId+'/image/'+bean.activityImage}}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<a href="/activity/list" class="btn btn-info">回列表</a> 
+					<a th:if="${#authentication.name != bean.createUser}" th:href="@{${'/order/activity/'+bean.activityId+'/signin'}}" class="btn btn-info" >報名活動</a>
+					<a th:if="${#authentication.name == bean.createUser}" th:href="@{${'/activity/'+bean.activityId+'/edit'}}" class="btn btn-danger" >編輯活動</a>
+					
+				</div>
+
+			</div>
+		</div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
+

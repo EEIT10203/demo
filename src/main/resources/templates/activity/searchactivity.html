@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+        <link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+        <script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+        <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script> 
+        <title>活動專區</title>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div>
+
+			<h2>查詢結果</h2>
+		
+		  <table class="table table-hover">
+		     <thead>
+		        <tr>
+		            <th></th>
+					<th>活動名稱</th>
+					<th>活動日期</th>
+					<th>活動地點</th>
+					<th>活動說明</th>
+					<th></th>
+		            <th></th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each=" bean: ${beanList}" >
+		            <th scope="row" th:text="${bean.activityId}"></th>
+		            <td ><a th:href="@{${'/activity/'+bean.activityId+'/detail'}}"><label  th:text="${bean.activityName}"></label></a></td>
+		            <td th:text="${bean.activityDate}"></td>
+		            <td th:text="${bean.activityPlace}"></td>
+					<td th:text="${bean.actiivityDescription}"></td>
+					<td>
+					</td>
+		        </tr>
+		        </tbody>
+		    </table>
+
+			</div>
+
+	      	</div>
+	     	<div th:replace="fragments/footer :: footer"></div>
+	     </div>
+	     
+    </body>
+</html>
+

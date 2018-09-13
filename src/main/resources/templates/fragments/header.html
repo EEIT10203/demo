@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+      <script th:src="@{/plugins/bootstrap/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">fun活動</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbarNavDropdown" class="navbar-collapse collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span th:text="最新消息"></span>		
+						</a>			
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                       <a href="#" class="badge badge-danger">您有新郵件9</a>
+                    </div>
+                    
+
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						.
+						.
+						.
+						.
+						.
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/activity/">活動列表</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/activity/search}"method="post" >
+      			<input class="form-control mr-sm-2" type="search" name="searchValue" placeholder="Search" aria-label="Search">
+      			<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+   			</form>
+            <ul class="navbar-nav" th:if="${#authorization.expression('!isAuthenticated()')}">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login" th:href="@{/login}">登入</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register/add" th:href="@{/register/addUser}">註冊</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" th:if="${#authorization.expression('isAuthenticated()')}">
+                <li class="nav-item">
+                    <a class="btn btn-primary" href="/activity/create">開活動</a>
+                </li>
+                <li class="nav-item" th:if="${#authorization.expression('hasAuthority(''M'')')}">
+                    <a class="btn btn-primary" href="/admin/">管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-primary" href="/chat">聊天室</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span th:text="${#authentication.name}">User</span>
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/activity/browser">未完成的活動</a>
+                        <a class="dropdown-item" href="/member/myhomepage">會員資料</a>
+                        <a class="dropdown-item" th:href="@{${'/member/edit'}}"  >修改會員資料</a>
+                        <a class="dropdown-item" href="/ticket/tickethomepage">票券中心</a>
+                        <a class="dropdown-item" href="/member/verify">帳號認證</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+	               	<form th:action="@{/logout}" method="post">
+			            <input class="btn btn-primary" type="submit" value="登出"/>
+			        </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+  </body>
+</html>

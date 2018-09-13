@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-tw" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+        <script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+        <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        
+<script> 
+function send() { 
+ var msg = "確定送出?"; 
+ if (confirm(msg)==true){ 
+  return true; 
+ }else{ 
+  return false; 
+ } 
+} 
+</script> 
+        <title>歡迎登入</title>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+		 <div class="container">
+		      <div class="hero-unit">
+				<h1>註冊</h1>
+				<br>
+				<div class="with:80%">
+				    <form class="form-horizontal" th:action="@{/register/doAddUser}"  method="post">
+				        <div class="form-group">
+				            <label for="userId" class="col-sm-2 control-label">使用者帳號</label>
+				            <div class="col-sm-10">
+				                <input type="text" class="form-control" name="userId"  id="userId" pattern="^[a-zA-Z0-9]{4,}$" placeholder="帳號需大於4個字母" required/>
+				            </div>
+				        </div>
+				        <div class="form-group">
+				            <label for="userName" class="col-sm-2 control-label" >使用者姓名</label>
+				            <div class="col-sm-10">
+				                <input type="text" class="form-control" name="userName" id="userName" placeholder="請輸入您的姓名" required/>
+				            </div>
+				        </div>
+				        <div class="form-group">
+				            <label for="userPwd" class="col-sm-2 control-label" >使用者密碼</label>
+				            <div class="col-sm-10">
+				                <input type="password" class="form-control" name="userPwd" id="userPwd" pattern="^[a-zA-Z0-9]{6,}$" placeholder="密碼需6個英數字" required/>
+				            </div>
+				        </div>
+				
+				        <div class="form-group">
+				            <div class="col-sm-offset-2 col-sm-10">
+				                <input type="submit" value="註冊" class="btn btn-info" onclick="javascript:return send()" />
+				                <input type="reset" value="清除" class="btn btn-info" />
+				            </div>
+				
+				        </div>
+			    	</form>
+				</div>
+	      	  </div>
+	   		<div th:replace="fragments/footer :: footer"></div>  	  
+		</div>
+    </body>
+</html>
+

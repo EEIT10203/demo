@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-tw" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+<link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+<script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+
+<script> 
+function del() { 
+ var msg = "確定要修改嗎?"; 
+ if (confirm(msg)==true){ 
+  return true; 
+ }else{ 
+  return false; 
+ } 
+} 
+</script> 
+
+
+<title>編輯活動內容</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<div>
+
+			<h2>活動列表</h2>
+
+			<form class="form-horizontal" th:action="@{/activity/doEdit}"
+				th:object="${activity}" method="post">
+				<input type="hidden" name="activityId" th:value="*{activityId}" />
+				<div class="form-group">
+					<label for="activityName" class="col-sm-2 control-label">活動名稱</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="activityName"
+							id="activityName" th:value="*{activityName}"
+							placeholder="請輸入活動名稱" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="activityDate" class="col-sm-2 control-label">活動日期</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="activityDate"
+							id="activityDate" th:value="*{activityDate}"
+							placeholder="請輸入活動日期" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="hostTel" class="col-sm-2 control-label">連絡電話</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="hostTel"
+							id="hostTel" th:value="*{hostTel}" placeholder="EX:0912-345678" required />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="hostMail" class="col-sm-2 control-label">連絡信箱</label>
+					<div class="col-sm-10">
+						<input type="email" class="form-control" name="hostMail"
+							id="hostMail" th:value="*{hostMail}" placeholder="test@XXXmail.com" required />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="activityPlace" class="col-sm-2 control-label">活動地點</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="activityPlace"
+							id="activityPlace" th:value="*{activityPlace}"
+							placeholder="請輸入活動地點" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="actiivityDescription" class="col-sm-2 control-label">活動說明</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control"
+							name="actiivityDescription" id="actiivityDescription"
+							th:value="*{actiivityDescription}" placeholder="對這個活動做說明" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="activityType" class="col-sm-2 control-label"></label>
+					<div class="col-sm-10">
+						<input type="hidden" class="form-control" name="activityType"
+							id="activityType" value="1" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="activityImage" class="col-sm-2 control-label">新增照片</label>
+					<div class="col-sm-10">
+						<input type="file" id="imageFile" name="imageFile"
+							class="form-control-file" accept=".png, .jpg, .jpeg">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<input type="submit" value="確認修改" class="btn btn-info" onclick="javascript:return del()" /> &nbsp;
+						&nbsp; &nbsp; <a href="/activity/browser" class="btn btn-info">回列表</a>
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
+
