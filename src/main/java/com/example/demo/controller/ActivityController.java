@@ -90,24 +90,6 @@ public class ActivityController {
 		return "/activity/searchactivity";
 	}
 
-	/*
-	 * @RequestMapping(value = "/list", method = RequestMethod.GET) public String
-	 * list(Model model) {
-	 * 
-	 * List<TActivity> entityList = activityService.selectPass();
-	 * List<ActivityFormBean> beanList = new ArrayList<ActivityFormBean>();
-	 * 
-	 * for(TActivity entity :entityList) { ActivityFormBean bean = new
-	 * ActivityFormBean(); bean.setActivityId(entity.getActivityId());
-	 * bean.setActivityName(entity.getActivityName());
-	 * bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()))
-	 * ; bean.setActivityPlace(entity.getActivityPlace());
-	 * bean.setActiivityDescription(entity.getActiivityDescription());
-	 * bean.setActivityImage(entity.getActivityImage()); beanList.add(bean); }
-	 * 
-	 * model.addAttribute("beanList", beanList); return "activity/list"; }
-	 */
-
 	@PreAuthorize("hasAnyAuthority('U','M','T','P')")
 	@RequestMapping(value = "/browser", method = RequestMethod.GET)
 	public String toBrowser(Model model) {
@@ -245,48 +227,6 @@ public class ActivityController {
 		return new ModelAndView("redirect:/activity/browser");
 	}
 
-	/*
-	 * @PreAuthorize("hasAnyAuthority('U','M')")
-	 * 
-	 * @RequestMapping(value = "/doAdd", method = RequestMethod.POST) public String
-	 * doAdd(@RequestParam("imageFile") MultipartFile file,ActivityFormBean
-	 * activity,RedirectAttributes ra) {
-	 * 
-	 * TActivity entity = new TActivity();
-	 * entity.setActivityName(activity.getActivityName());
-	 * entity.setActivityDate(CommonUtils.stringToTimestamp(activity.getActivityDate
-	 * ())); entity.setActivityPlace(activity.getActivityPlace());
-	 * entity.setActiivityDescription(activity.getActiivityDescription());
-	 * entity.setHostTel(activity.getHostTel());
-	 * entity.setHostMail(activity.getHostMail());
-	 * entity.setActivityType(activity.getActivityType());
-	 * entity.setActivityStatus("0");
-	 * 
-	 * 
-	 * TTicket ticketEntity = new TTicket();
-	 * ticketEntity.setTicketId(activity.getTicketId());
-	 * ticketEntity.setTicketName(activity.getTicketName());
-	 * ticketEntity.setTicketPrice(activity.getTicketPrice());
-	 * ticketEntity.setTicketQuantity(activity.getTicketQuantity());
-	 * ticketEntity.setTicketType(activity.getTicketType());
-	 * 
-	 * 
-	 * TActivity rs = null; if(!file.isEmpty()){ try { rs =
-	 * activityService.createByImage(entity, ticketEntity, file); } catch
-	 * (IllegalStateException | IOException e) {
-	 * 
-	 * }
-	 * 
-	 * } else {
-	 * 
-	 * rs = activityService.create(entity, ticketEntity);
-	 * 
-	 * }
-	 * 
-	 * ra.addAttribute("activityId", rs.getActivityId()); return
-	 * "redirect:/activity/list"; }
-	 */
-
 	@PreAuthorize("hasAnyAuthority('U','M','T','P')")
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public String toEdit(Model model, @PathVariable("id") int id) {
@@ -388,99 +328,26 @@ public class ActivityController {
 		}
 	}
 
-	// @PreAuthorize("hasAnyAuthority('U','M')")
-	// @RequestMapping(value = "/{id}/preview", method = RequestMethod.GET)
-	// public String preview(Model model, @PathVariable("id") int id) {
-	// TActivity entity = activityService.getActivityById(id);
-	// ActivityFormBean bean = new ActivityFormBean();
-	// bean.setActivityId(entity.getActivityId());
-	// bean.setActivityName(entity.getActivityName());
-	// bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()));
-	// bean.setActivityPlace(entity.getActivityPlace());
-	// bean.setActiivityDescription(entity.getActiivityDescription());
-	// bean.setActivityImage(entity.getActivityImage());
-	// bean.setActivityHost(entity.getActivityHost());
-	// bean.setHostTel(entity.getHostTel());
-	// bean.setHostMail(entity.getHostMail());
-	//
-	// List<TTicket> entitylist= ticketService.getByActivityId(id);
-	// List<TicketFormBean> ticket = new ArrayList<TicketFormBean>();
-	// for(TTicket entity1 :entitylist) {
-	// TicketFormBean bean1 = new TicketFormBean();
-	// bean1.setTicketId(entity1.getTicketId());
-	// bean1.setActivityName(entity1.getActivityName());
-	// bean1.setTicketName(entity1.getTicketName());
-	// bean1.setTicketPrice(entity1.getTicketPrice());
-	// bean1.setTicketQuantity(entity1.getTicketQuantity());
-	// bean1.setTicketType(entity1.getTicketType());
-	// ticket.add(bean1);
-	// }
-	//
-	//
-	// model.addAttribute("bean",bean);
-	// model.addAttribute("ticketList",ticket);
-	// return "/activity/preview";
-	// }
+	@PreAuthorize("hasAnyAuthority('U','M','T','P')")
+	@RequestMapping(value = "/myActivity", method = RequestMethod.GET)
+	public String myActivity(Model model) {
 
-	/*
-	 * @PreAuthorize("hasAnyAuthority('U','M')")
-	 * 
-	 * @RequestMapping(value = "/{id}/signin", method = RequestMethod.GET) public
-	 * String signin(Model model, @PathVariable("id") int id) {
-	 * 
-	 * TActivity entity = activityService.getActivityById(id); ActivityFormBean bean
-	 * = new ActivityFormBean();
-	 * 
-	 * bean.setActivityId(entity.getActivityId());
-	 * bean.setActivityName(entity.getActivityName());
-	 * bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()))
-	 * ; bean.setActivityPlace(entity.getActivityPlace());
-	 * bean.setActiivityDescription(entity.getActiivityDescription());
-	 * bean.setActivityImage(entity.getActivityImage());
-	 * bean.setHostTel(entity.getHostTel()); bean.setHostMail(entity.getHostMail());
-	 * 
-	 * List<TTicket> entity1= ticketService.getByActivityId(id);
-	 * List<TicketFormBean> ticket1 = new ArrayList<TicketFormBean>();
-	 * 
-	 * 
-	 * for(TTicket entity2 :entity1) { TicketFormBean ticketbean = new
-	 * TicketFormBean();
-	 * 
-	 * ticketbean.setTicketId(entity2.getTicketId());
-	 * ticketbean.setTicketName(entity2.getTicketName());
-	 * ticketbean.setTicketPrice(entity2.getTicketPrice());
-	 * ticketbean.setTicketRemain(entity2.getTicketRemain());
-	 * ticketbean.setTicketType(entity2.getTicketType());
-	 * 
-	 * ticket1.add(ticketbean); }
-	 * 
-	 * model.addAttribute("bean",bean); model.addAttribute("ticket",ticket1); return
-	 * "/signin/signintable"; }
-	 */
+		List<TActivity> myActivityList = activityService.selectAllCreateUser();
+		List<ActivityFormBean> activityList = new ArrayList<ActivityFormBean>();
 
-	// @PreAuthorize("hasAnyAuthority('U','M')")
-	// @RequestMapping(value = "/addsignin", method = RequestMethod.POST)
-	// public String addsignin(ActivityFormBean activity,RedirectAttributes ra) {
-	//
-	// TActivity entity = new TActivity();
-	// entity.setActivityName(activity.getActivityName());
-	// entity.setActivityDate(CommonUtils.stringToTimestamp(activity.getActivityDate()));
-	// entity.setActivityPlace(activity.getActivityPlace());
-	// entity.setActiivityDescription(activity.getActiivityDescription());
-	// entity.setHostTel(activity.getHostTel());
-	// entity.setHostMail(activity.getHostMail());
-	//
-	// TSaveticket saveticketEntity = new TSaveticket();
-	// saveticketEntity.set
-	// saveticketEntity.setTicketName(activity.getTicketName());
-	// saveticketEntity.setTicketPrice(activity.getTicketPrice());
-	// saveticketEntity.setTicketQuantity(activity.getTicketQuantity());
-	// saveticketEntity.setTicketType(activity.getTicketType());
-	//
-	//
-	// TActivity rs = activityService.create(entity, ticketEntity);
-	// ra.addAttribute("activityId", rs.getActivityId());
-	//
-	// return "redirect:/activity/list";
-	// }
+		for (TActivity entity : myActivityList) {
+			ActivityFormBean bean = new ActivityFormBean();
+			bean.setActivityId(entity.getActivityId());
+			bean.setActivityName(entity.getActivityName());
+			bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()));
+			bean.setActivityPlace(entity.getActivityPlace());
+			bean.setActiivityDescription(entity.getActiivityDescription());
+			bean.setCreateUser(entity.getCreateUser());
+			activityList.add(bean);
+		}
+
+		model.addAttribute("activityList", activityList);
+		return "/activity/myActivity";
+	}
+
 }
