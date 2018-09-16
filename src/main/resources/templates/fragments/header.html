@@ -62,10 +62,14 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/activity/browser">未完成的活動</a>
-                        <a class="dropdown-item" href="/member/myhomepage">會員資料</a>
-                        <a class="dropdown-item" th:href="@{${'/member/edit'}}"  >修改會員資料</a>
-                        <a class="dropdown-item" href="/ticket/tickethomepage">票券中心</a>
+                     <a class="dropdown-header" >活動專區</a>
+                        <a class="dropdown-item" href="/activity/browser">我參加的活動</a>
+                        <a class="dropdown-item" href="#">我舉辦的活動</a>
+                        <a class="dropdown-item" href="/ticket/tickethomepage">我的票券</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-header" >會員專區</a>
+                        <a class="dropdown-item" href="/member/myhomepage">個人頁面</a>
+                        <a class="dropdown-item" th:href="@{${'/member/edit'}}"  >修改會員資料</a>                 
                         <a class="dropdown-item" href="/member/verify">帳號認證</a>
                     </div>
                 </li>
