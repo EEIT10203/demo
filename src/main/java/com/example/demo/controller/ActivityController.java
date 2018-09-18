@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +111,9 @@ public class ActivityController {
 			ActivityFormBean bean = new ActivityFormBean();
 			bean.setActivityId(entity.getActivityId());
 			bean.setActivityName(entity.getActivityName());
-			bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()));
+			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+			String tsStr = sdf.format(entity.getActivityDate());
+			bean.setActivityDate(tsStr);
 			bean.setActivityPlace(entity.getActivityPlace());
 			bean.setActiivityDescription(entity.getActiivityDescription());
 			bean.setCreateUser(entity.getCreateUser());
@@ -201,9 +206,12 @@ public class ActivityController {
 			@RequestParam("imageFile") MultipartFile file) {
 
 		TActivity entity = new TActivity();
+
 		entity.setActivityName(activity.getActivityName());
-		entity.setActivityDate(CommonUtils.stringToTimestamp(activity.getActivityDate()));
+		String test = activity.getActivityDate().replace("T", " ") + ":00";
+		entity.setActivityDate(Timestamp.valueOf(test));
 		entity.setActivityPlace(activity.getActivityPlace());
+
 		entity.setActiivityDescription(activity.getActiivityDescription());
 		entity.setHostTel(activity.getHostTel());
 		entity.setHostMail(activity.getHostMail());
@@ -243,7 +251,11 @@ public class ActivityController {
 			ActivityFormBean bean = new ActivityFormBean();
 			bean.setActivityId(entity.getActivityId());
 			bean.setActivityName(entity.getActivityName());
-			bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()));
+
+			DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+			String tsStr = sdf.format(entity.getActivityDate());
+			bean.setActivityDate(tsStr);
+
 			bean.setActivityPlace(entity.getActivityPlace());
 			bean.setActiivityDescription(entity.getActiivityDescription());
 			bean.setHostTel(entity.getHostTel());
@@ -263,7 +275,8 @@ public class ActivityController {
 
 		TActivity entity = activityService.getActivityById(activity.getActivityId());
 		entity.setActivityName(activity.getActivityName());
-		entity.setActivityDate(CommonUtils.stringToTimestamp(activity.getActivityDate()));
+		String test = activity.getActivityDate().replace("T", " ") + ":00";
+		entity.setActivityDate(Timestamp.valueOf(test));
 		entity.setActivityPlace(activity.getActivityPlace());
 		entity.setActiivityDescription(activity.getActiivityDescription());
 		entity.setHostTel(activity.getHostTel());
