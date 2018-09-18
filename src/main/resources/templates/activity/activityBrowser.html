@@ -35,7 +35,7 @@
 		<div class="container">
 			<div>
 
-		<h2>活動列表</h2>
+		<h2>我舉辦的活動</h2>
 		
 		
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -43,13 +43,13 @@
 		    <a class="nav-link active" id="check-tab" data-toggle="tab" href="#check" role="tab" aria-controls="check" aria-selected="true">未審核</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" id="waitcheck-tab" data-toggle="tab" href="#waitcheck" role="tab" aria-controls="waitcheck" aria-selected="false">送審中</a>
+		    <a class="nav-link" id="waitcheck-tab" data-toggle="tab" href="#waitcheck" role="tab" aria-controls="waitcheck" aria-selected="false">待審核</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" id="pass-tab" data-toggle="tab" href="#pass" role="tab" aria-controls="pass" aria-selected="false">審核通過</a>
+		    <a class="nav-link" id="pass-tab" data-toggle="tab" href="#pass" role="tab" aria-controls="pass" aria-selected="false">上架中</a>
 		  </li>
 		   <li class="nav-item">
-		    <a class="nav-link" id="cancel-tab" data-toggle="tab" href="#cancel" role="tab" aria-controls="cancel" aria-selected="false">已取消</a>
+		    <a class="nav-link" id="cancel-tab" data-toggle="tab" href="#cancel" role="tab" aria-controls="cancel" aria-selected="false">已下架</a>
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link " id="fault-tab" data-toggle="tab" href="#fault" role="tab" aria-controls="fault" aria-selected="true">審核未通過</a>
@@ -113,6 +113,8 @@
 					<td th:text="${bean.actiivityDescription}"></td>
 					<td>
 					<div >
+					<a th:href="@{${'/activity/'+bean.activityId+'/edit'}}" class="btn btn-info" >編輯</a>
+					<a th:href="@{${'/activity/'+bean.activityId+'/detail'}}" class="btn btn-info" >瀏覽</a>
 					<a th:href="@{${'/activity/'+bean.activityId+'/cancel'}}" onclick="javascript:return del()" class="btn btn-info" >取消活動</a>
 					</div>
 					</td>
@@ -144,7 +146,10 @@
 					<td th:text="${bean.actiivityDescription}"></td>
 					<td>
 					<div >
+					<a th:href="@{${'/activity/'+bean.activityId+'/detail'}}" class="btn btn-info" >瀏覽</a>
+					<a th:href="@{${'/activity/'+bean.activityId+'/orderUserList'}}" class="btn btn-info">參加名單</a>
 					<a th:href="@{${'/activity/'+bean.activityId+'/cancel'}}" onclick="javascript:return del()" class="btn btn-info" >取消活動</a>
+					
 					</div>
 					</td>
 		        </tr>
@@ -173,7 +178,10 @@
 		            <td th:text="${bean.activityPlace}"></td>
 					<td th:text="${bean.actiivityDescription}"></td>
 					<td>
-
+						<div >
+						<a th:href="@{${'/activity/'+bean.activityId+'/detail'}}" class="btn btn-info" >瀏覽</a>
+						<a th:href="@{${'/activity/'+bean.activityId+'/orderUserList'}}" class="btn btn-info">參加名單</a>
+						</div>
 					</td>
 		        </tr>
 		        </tbody>

@@ -24,20 +24,26 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.TActivity;
+import com.example.demo.entity.TOrder;
+import com.example.demo.entity.TOrderDetail;
 import com.example.demo.entity.TTicket;
 import com.example.demo.formbean.ActivityFormBean;
+import com.example.demo.formbean.OrderFormBean;
 import com.example.demo.service.ActivityService;
+import com.example.demo.service.OrderService;
 import com.example.demo.utils.CommonUtils;
 
 @Controller
 @RequestMapping(value = "/activity", method = RequestMethod.GET)
 public class ActivityController {
-
 	@Value("${activity.file.path}")
 	private String imageFilePath;
 
 	@Autowired
 	private ActivityService activityService;
+
+	@Autowired
+	private OrderService orderService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
@@ -328,26 +334,96 @@ public class ActivityController {
 		}
 	}
 
+	// // 我舉辦的活動
+	// @PreAuthorize("hasAnyAuthority('U','M','T','P')")
+	// @RequestMapping(value = "/myActivity", method = RequestMethod.GET)
+	// public String myActivity(Model model) {
+	// // 上架中
+	// List<TActivity> myActivityList = activityService.selectCreateUserPass();
+	// List<ActivityFormBean> activityList = new ArrayList<ActivityFormBean>();
+	// for (TActivity entity : myActivityList) {
+	// ActivityFormBean bean = new ActivityFormBean();
+	// bean.setActivityId(entity.getActivityId());
+	// bean.setActivityName(entity.getActivityName());
+	// bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()));
+	// bean.setActivityPlace(entity.getActivityPlace());
+	// bean.setActiivityDescription(entity.getActiivityDescription());
+	// bean.setCreateUser(entity.getCreateUser());
+	// activityList.add(bean);
+	// }
+	// model.addAttribute("activityList", activityList);
+	//
+	// // 待審核
+	// List<TActivity> waitCheckList = activityService.selectCreateUserWaitCheck();
+	// List<ActivityFormBean> waitList = new ArrayList<ActivityFormBean>();
+	// for (TActivity entity : waitCheckList) {
+	// ActivityFormBean bean = new ActivityFormBean();
+	// bean.setActivityId(entity.getActivityId());
+	// bean.setActivityName(entity.getActivityName());
+	// bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()));
+	// bean.setActivityPlace(entity.getActivityPlace());
+	// bean.setActiivityDescription(entity.getActiivityDescription());
+	// bean.setCreateUser(entity.getCreateUser());
+	// waitList.add(bean);
+	// }
+	// model.addAttribute("waitList", waitList);
+	//
+	// // 已結束
+	// List<TActivity> endList = activityService.selectCreateUserEnd();
+	// List<ActivityFormBean> userEndList = new ArrayList<ActivityFormBean>();
+	// for (TActivity entity : endList) {
+	// ActivityFormBean bean = new ActivityFormBean();
+	// bean.setActivityId(entity.getActivityId());
+	// bean.setActivityName(entity.getActivityName());
+	// bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()));
+	// bean.setActivityPlace(entity.getActivityPlace());
+	// bean.setActiivityDescription(entity.getActiivityDescription());
+	// bean.setCreateUser(entity.getCreateUser());
+	// userEndList.add(bean);
+	// }
+	// model.addAttribute("userEndList", userEndList);
+	//
+	// // 已下架
+	// List<TActivity> cancelList = activityService.selectCreateUserCancel();
+	// List<ActivityFormBean> userCancelList = new ArrayList<ActivityFormBean>();
+	// for (TActivity entity : cancelList) {
+	// ActivityFormBean bean = new ActivityFormBean();
+	// bean.setActivityId(entity.getActivityId());
+	// bean.setActivityName(entity.getActivityName());
+	// bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()));
+	// bean.setActivityPlace(entity.getActivityPlace());
+	// bean.setActiivityDescription(entity.getActiivityDescription());
+	// bean.setCreateUser(entity.getCreateUser());
+	// userCancelList.add(bean);
+	// }
+	// model.addAttribute("userCancelList", userCancelList);
+	// return "/activity/myActivity";
+	// }
+
 	@PreAuthorize("hasAnyAuthority('U','M','T','P')")
-	@RequestMapping(value = "/myActivity", method = RequestMethod.GET)
-	public String myActivity(Model model) {
+	@RequestMapping(value = "/{id}/orderUserList", method = RequestMethod.GET)
+	public String addList(Model model, @PathVariable("id") int id) {
+		List<TOrder> orderUserList = orderService.getOrderUserList(id);
+		List<TOrderDetail> orderDetailUserList = orderService.getOrderDetailUserList(id);
+		List<OrderFormBean> userList = new ArrayList<OrderFormBean>();
 
-		List<TActivity> myActivityList = activityService.selectAllCreateUser();
-		List<ActivityFormBean> activityList = new ArrayList<ActivityFormBean>();
-
-		for (TActivity entity : myActivityList) {
-			ActivityFormBean bean = new ActivityFormBean();
-			bean.setActivityId(entity.getActivityId());
-			bean.setActivityName(entity.getActivityName());
-			bean.setActivityDate(CommonUtils.timestampToString(entity.getActivityDate()));
-			bean.setActivityPlace(entity.getActivityPlace());
-			bean.setActiivityDescription(entity.getActiivityDescription());
-			bean.setCreateUser(entity.getCreateUser());
-			activityList.add(bean);
+		for (int i = 0; i < orderUserList.size(); i++) {
+			OrderFormBean bean = new OrderFormBean();
+			bean.setOrderId(orderUserList.get(i).getOrderId());
+			bean.setUserId(orderUserList.get(i).getUserId());
+			bean.setUserName(orderUserList.get(i).getUserName());
+			bean.setMobile(orderUserList.get(i).getMobile());
+			bean.setEmail(orderUserList.get(i).getEmail());
+			bean.setTotalPrice(orderUserList.get(i).getTotalPrice());
+			bean.setOrderStatus(orderUserList.get(i).getOrderStatus());
+			for (int j = 0; j <= orderDetailUserList.size(); j++) {
+				bean.setBuyTicket(orderDetailUserList.get(i).getBuyTicket());
+				bean.setTicketPrice(orderDetailUserList.get(i).getTicketPrice());
+			}
+			userList.add(bean);
 		}
 
-		model.addAttribute("activityList", activityList);
-		return "/activity/myActivity";
+		model.addAttribute("userList", userList);
+		return "/activity/userList";
 	}
-
 }

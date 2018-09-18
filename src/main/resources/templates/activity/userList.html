@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.css}"></link>
+        <link rel="stylesheet" th:href="@{/plugins/jquery-ui/jquery-ui.css}"></link>
+        <script th:src="@{/plugins/jquery-3.3.1.min.js}"></script>
+        <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/plugins/jquery-ui/jquery-ui.js}"></script>
+		<script> 
+			function del() { 
+			 var msg = "確定要下架嗎?"; 
+			 if (confirm(msg)==true){ 
+			  return true; 
+			 }else{ 
+			  return false; 
+			 } 
+			} 
+		</script> 
+		
+		<script> 
+			function send() { 
+			 var msg = "提交審核後就無法做修改，確定要提交嗎?"; 
+			 if (confirm(msg)==true){ 
+			  return true; 
+			 }else{ 
+			  return false; 
+			 } 
+			} 
+		</script> 
+        <title>活動專區</title>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div>
+
+		<h2>參加名單</h2>
+		
+		
+		
+		
+		<div class="tab-content" id="myTabContent">
+		
+		  <div class="tab-pane fade show active" id="check" role="tabpanel" aria-labelledby="check-tab">
+		  <table class="table table-hover">
+		     <thead>
+		        <tr>
+		            <th></th>
+					<th>參加人姓名</th>
+					<th>參加人電話</th>
+					<th>參加人信箱</th>
+					<th>票卷數量</th>
+					<th>票卷價格</th>
+					<th>總金額</th>
+					<th>狀態</th>
+					<th></th>
+		            <th></th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr  th:each=" bean: ${userList}" >
+		            <th scope="row" th:text="${bean.orderId}"></th>
+		            <td th:text="${bean.userName}"></td>
+		            <td th:text="${bean.mobile}"></td>
+		            <td th:text="${bean.email}"></td>
+		            <td th:text="${bean.buyTicket}"></td>
+					<td th:text="${bean.ticketPrice}"></td>
+					<td th:text="${bean.totalPrice}"></td>
+					<td>
+								<label  th:text="未付款" th:if="${bean.orderStatus} ==0"></label>
+								<label  th:text="已付款" th:if="${bean.orderStatus} ==2"></label>
+								<label  th:text="取消" th:if="${bean.orderStatus} ==9"></label>
+								</td>
+					<td>
+					</td>
+		        </tr>
+		        </tbody>
+		    </table>
+		  </div>
+		  <a class="btn btn-info" href="/activity/browser">回上層</a>
+		  <a class="btn btn-info" href="#">下載參加名單</a>
+		  
+
+		</div>
+
+	      	</div>
+	     	<div th:replace="fragments/footer :: footer"></div>
+	     </div>
+	     
+    </body>
+</html>
+

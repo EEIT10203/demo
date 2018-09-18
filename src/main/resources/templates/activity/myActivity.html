@@ -40,7 +40,7 @@
 		
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 		  <li class="nav-item">
-		    <a class="nav-link active" id="check-tab" data-toggle="tab" href="#check" role="tab" aria-controls="check" aria-selected="true">上架</a>
+		    <a class="nav-link active" id="check-tab" data-toggle="tab" href="#check" role="tab" aria-controls="check" aria-selected="true">上架中</a>
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" id="waitcheck-tab" data-toggle="tab" href="#waitcheck" role="tab" aria-controls="waitcheck" aria-selected="false">待審核</a>
@@ -49,7 +49,7 @@
 		    <a class="nav-link" id="cancel-tab" data-toggle="tab" href="#cancel" role="tab" aria-controls="cancel" aria-selected="false">已結束</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link " id="fault-tab" data-toggle="tab" href="#fault" role="tab" aria-controls="fault" aria-selected="true">下架</a>
+		    <a class="nav-link " id="fault-tab" data-toggle="tab" href="#fault" role="tab" aria-controls="fault" aria-selected="true">已下架</a>
 		  </li>
 		</ul>
 		
@@ -79,8 +79,8 @@
 					<div >
 					<a th:href="@{${'/activity/'+bean.activityId+'/edit'}}" class="btn btn-info" >編輯</a>
 					<a th:href="@{${'/activity/'+bean.activityId+'/detail'}}" class="btn btn-info" >瀏覽</a>
-					<a th:href="@{${'#'}}" class="btn btn-info" >參加名單</a>
-					<a th:href="@{${'#'}}" onclick="javascript:return del()" class="btn btn-info" >下架</a>
+					<a th:href="@{${'/activity/'+bean.activityId+'/orderUserList'}}" class="btn btn-info">參加名單</a>
+					<a th:href="@{${'/activity/'+bean.activityId+'/cancel'}}" onclick="javascript:return del()" class="btn btn-info" >下架</a>
 					</div>
 					</td>
 		        </tr>
@@ -103,7 +103,7 @@
 		        </tr>
 		        </thead>
 		        <tbody>
-		        <tr  th:each=" bean: ${waitcheckList}" th:if="${#authentication.name == bean.createUser}">
+		        <tr  th:each=" bean: ${waitList}" th:if="${#authentication.name == bean.createUser}">
 		            <th scope="row" th:text="${bean.activityId}"></th>
 		            <td ><a th:href="@{${'/activity/'+bean.activityId+'/detail'}}"><label  th:text="${bean.activityName}"></label></a></td>
 		            <td th:text="${bean.activityDate}"></td>
@@ -136,14 +136,17 @@
 		        </tr>
 		        </thead>
 		        <tbody>
-		        <tr  th:each=" bean: ${cancelList}" th:if="${#authentication.name == bean.createUser}">
+		        <tr  th:each=" bean: ${userEndList}" th:if="${#authentication.name == bean.createUser}">
 		            <th scope="row" th:text="${bean.activityId}"></th>
 		            <td ><a th:href="@{${'/activity/'+bean.activityId+'/detail'}}"><label  th:text="${bean.activityName}"></label></a></td>
 		            <td th:text="${bean.activityDate}"></td>
 		            <td th:text="${bean.activityPlace}"></td>
 					<td th:text="${bean.actiivityDescription}"></td>
 					<td>
-
+					<div >
+					<a th:href="@{${'/activity/'+bean.activityId+'/detail'}}" class="btn btn-info" >瀏覽</a>
+					<a th:href="@{${'/activity/'+bean.activityId+'/orderUserList'}}" class="btn btn-info">參加名單</a>
+					</div>
 					</td>
 		        </tr>
 		        </tbody>
@@ -164,7 +167,7 @@
 		        </tr>
 		        </thead>
 		        <tbody>
-		        <tr  th:each=" bean: ${faultList}" th:if="${#authentication.name == bean.createUser}">
+		        <tr  th:each=" bean: ${userCancelList}" th:if="${#authentication.name == bean.createUser}">
 		            <th scope="row" th:text="${bean.activityId}"></th>
 		            <td ><a th:href="@{${'/activity/'+bean.activityId+'/detail'}}"><label  th:text="${bean.activityName}"></label></a></td>
 		            <td th:text="${bean.activityDate}"></td>
@@ -172,9 +175,8 @@
 					<td th:text="${bean.actiivityDescription}"></td>
 					<td>
 					<div >
-					<a th:href="#" class="btn btn-info" >編輯</a>
-					<a th:href="#" onclick="javascript:return del()" class="btn btn-info" >取消活動</a>
-					<a th:href="#" onclick="javascript:return send()" class="btn btn-info" >重新提交審核</a>
+					<a th:href="@{${'/activity/'+bean.activityId+'/detail'}}" class="btn btn-info" >瀏覽</a>
+					<a th:href="@{${'/activity/'+bean.activityId+'/orderUserList'}}" class="btn btn-info">參加名單</a>
 					</div>
 					</td>
 		        </tr>

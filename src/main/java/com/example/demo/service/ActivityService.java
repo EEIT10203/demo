@@ -69,8 +69,21 @@ public class ActivityService {
 
 	}
 
-	public List<TActivity> selectAllCreateUser() {
-		return activityRepository.getAllCreateUser(currentUser.getUserId());
+	// 我舉辦的活動
+	public List<TActivity> selectCreateUserPass() {
+		return activityRepository.getAllCreateUser(currentUser.getUserId(), "2");
+	}
+
+	public List<TActivity> selectCreateUserWaitCheck() {
+		return activityRepository.getAllCreateUser(currentUser.getUserId(), "1");
+	}
+
+	public List<TActivity> selectCreateUserEnd() {
+		return activityRepository.getAllCreateUser(currentUser.getUserId(), "8");
+	}
+
+	public List<TActivity> selectCreateUserCancel() {
+		return activityRepository.getAllCreateUser(currentUser.getUserId(), "9");
 	}
 
 	public List<TActivity> selectAll() {
