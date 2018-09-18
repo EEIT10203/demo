@@ -19,69 +19,80 @@ public class TActivity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "activity_id", unique = true, nullable = false)
 	private int activityId;
-	
+
 	@Column(name = "activity_name", nullable = false)
 	private String activityName;
-	
+
 	@Column(name = "activity_date", nullable = false)
 	private Timestamp activityDate;
-	
+
 	@Column(name = "activity_place", nullable = false)
 	private String activityPlace;
-	
+
 	@Column(name = "actiivity_description")
 	private String actiivityDescription;
-	
+
 	@Column(name = "create_user", nullable = false, insertable = true, updatable = false)
 	private String createUser;
-	
+
 	@CreationTimestamp
 	@Column(name = "create_time", nullable = false, insertable = true, updatable = false)
 	private Timestamp createTime;
-	
+
 	@Column(name = "update_user", nullable = false, insertable = true, updatable = true)
 	private String updateUser;
-	
+
 	@UpdateTimestamp
 	@Column(name = "update_time", nullable = false, insertable = true, updatable = true)
 	private Timestamp updateTime;
-	
+
 	@Column(name = "activity_image")
 	private String activityImage;
-	
+
 	@Column(name = "activity_host")
 	private String activityHost;
-	
+
 	@Column(name = "host_mail")
 	private String hostMail;
-	
+
 	@Column(name = "host_tel")
 	private String hostTel;
-	
+
 	@Column(name = "joinnum")
 	private int joinnum;
-	
+
+	@Column(name = "end_time")
+	private Timestamp endTime;
+
 	@Column(name = "maxnum")
 	private int maxnum;
-	
+
 	@Column(name = "minnum")
 	private int minnum;
-	
+
 	@Column(name = "activity_map")
 	private String activityMap;
-	
+
 	@Column(name = "activity_type")
 	private String activityType;
-	
+
 	@Column(name = "tag_activity")
 	private String tagActivity;
-	
+
 	@Column(name = "tag_location")
 	private String tagLocation;
-	
+
 	@Column(name = "activity_status")
 	private String activityStatus;
-	
+
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
+
 	public int getActivityId() {
 		return activityId;
 	}
@@ -234,7 +245,6 @@ public class TActivity {
 		this.tagLocation = tagLocation;
 	}
 
-
 	public String getActivityType() {
 		return activityType;
 	}
@@ -250,6 +260,5 @@ public class TActivity {
 	public void setActivityMap(String activityMap) {
 		this.activityMap = activityMap;
 	}
-
 
 }

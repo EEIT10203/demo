@@ -169,6 +169,15 @@ public class ActivityService {
 		}
 	}
 
+	public void updateEnd(int activityId) {
+		TActivity db = activityRepository.getById(activityId);
+
+		if (db != null) {
+			db.setActivityStatus("8");
+			activityRepository.save(db);
+		}
+	}
+
 	public void updateExaminePass(int activityId) {
 
 		// if(StringUtils.equals(currentUser.getUserRole(), "M")) {
